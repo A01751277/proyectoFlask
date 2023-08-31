@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+		body {
+	user-select: none;
+}
+
+table {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	border: 2px solid black;
+	padding: 1%;
+	border-collapse: separate;
+	border-spacing: 10px;
+}
+
+td {
+	border: 2px solid black;
+	border-radius: 100%;
+	width: 80px;
+	height: 80px;
+}
+
+/*td:nth-child(1):hover {
+	outline: 2px solid gold;
+	outline-offset: 1px;
+}*/
+
+tr:nth-child(1) td:hover {
+	outline: 2px solid gold;
+	outline-offset: 1px;
+}
+
+.redDisc {
+	background-color: red;
+}
+
+.blueDisc {
+	background-color: blue;
+}
+	</style>
+	<title>Connect 4</title>
+</head>
+<body>
+	<div>
+		<table>
+			<tr>
+				<td class="column1" onmousedown="placeDisc(event)"></td>
+				<td class="column2" onmousedown="placeDisc(event)"></td>
+				<td class="column3" onmousedown="placeDisc(event)"></td>
+				<td class="column4" onmousedown="placeDisc(event)"></td>
+				<td class="column5" onmousedown="placeDisc(event)"></td>
+				<td class="column6" onmousedown="placeDisc(event)"></td>
+				<td class="column7" onmousedown="placeDisc(event)"></td>
+			</tr>
+			<tr>
+				<td class="column1" onmousedown="placeDisc(event)"></td>
+				<td class="column2" onmousedown="placeDisc(event)"></td>
+				<td class="column3" onmousedown="placeDisc(event)"></td>
+				<td class="column4" onmousedown="placeDisc(event)"></td>
+				<td class="column5" onmousedown="placeDisc(event)"></td>
+				<td class="column6" onmousedown="placeDisc(event)"></td>
+				<td class="column7" onmousedown="placeDisc(event)"></td>
+			</tr>
+			<tr>
+				<td class="column1" onmousedown="placeDisc(event)"></td>
+				<td class="column2" onmousedown="placeDisc(event)"></td>
+				<td class="column3" onmousedown="placeDisc(event)"></td>
+				<td class="column4" onmousedown="placeDisc(event)"></td>
+				<td class="column5" onmousedown="placeDisc(event)"></td>
+				<td class="column6" onmousedown="placeDisc(event)"></td>
+				<td class="column7" onmousedown="placeDisc(event)"></td>
+			</tr>
+			<tr>
+				<td class="column1" onmousedown="placeDisc(event)"></td>
+				<td class="column2" onmousedown="placeDisc(event)"></td>
+				<td class="column3" onmousedown="placeDisc(event)"></td>
+				<td class="column4" onmousedown="placeDisc(event)"></td>
+				<td class="column5" onmousedown="placeDisc(event)"></td>
+				<td class="column6" onmousedown="placeDisc(event)"></td>
+				<td class="column7" onmousedown="placeDisc(event)"></td>
+			</tr>
+			<tr>
+				<td class="column1" onmousedown="placeDisc(event)"></td>
+				<td class="column2" onmousedown="placeDisc(event)"></td>
+				<td class="column3" onmousedown="placeDisc(event)"></td>
+				<td class="column4" onmousedown="placeDisc(event)"></td>
+				<td class="column5" onmousedown="placeDisc(event)"></td>
+				<td class="column6" onmousedown="placeDisc(event)"></td>
+				<td class="column7" onmousedown="placeDisc(event)"></td>
+			</tr>
+			<tr>
+				<td class="column1" onmousedown="placeDisc(event)"></td>
+				<td class="column2" onmousedown="placeDisc(event)"></td>
+				<td class="column3" onmousedown="placeDisc(event)"></td>
+				<td class="column4" onmousedown="placeDisc(event)"></td>
+				<td class="column5" onmousedown="placeDisc(event)"></td>
+				<td class="column6" onmousedown="placeDisc(event)"></td>
+				<td class="column7" onmousedown="placeDisc(event)"></td>
+			</tr>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+		var boardInternal = [];
+
+for (var i = 0; i < 6; i++) {
+	boardInternal[i] = [];
+	for (var j = 0; j < 7; j++) {
+		boardInternal[i][j] = "";
+	}
+}
+
+var discNum = Math.floor(Math.random() * 2);
+var currentDisc;
+var colorClass;
+
+if (discNum >= 0.5) {
+	currentDisc = "b";
+	colorClass = "blueDisc";
+} else {
+	currentDisc = "r";
+	colorClass = "redDisc";
+}
+
+var roundOver = false;
+
+// var test;
+
+function placeDisc(ev) {
+	// test = ev;
+	if (!roundOver) {
+		if (ev.srcElement.classList.contains("column1")) {
+			placeHighest(ev, 0);
+			// After some thinking, I realized I didn't even need checkColFull()...
+			/*
+			if (checkColFull(0)) {
+				// Repeat turn
+				// console.log("full")
+			} else {
+				// Place at the highest possible level
+				placeHighest(ev, 0);
+			}
+			*/
+		} else if (ev.srcElement.classList.contains("column2")) {
+			placeHighest(ev, 1);
+		} else if (ev.srcElement.classList.contains("column3")) {
+			placeHighest(ev, 2);
+		} else if (ev.srcElement.classList.contains("column4")) {
+			placeHighest(ev, 3);
+		} else if (ev.srcElement.classList.contains("column5")) {
+			placeHighest(ev, 4);
+		} else if (ev.srcElement.classList.contains("column6")) {
+			placeHighest(ev, 5);
+		} else if (ev.srcElement.classList.contains("column7")) {
+			placeHighest(ev, 6);
+		}
+	}
+}
+
+function checkColFull(col) {
+	if (boardInternal[0][col] != "") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function placeHighest(ev, col) {
+	var placed = false;
+	var row = 5;
+	while (!placed && row >= 0) {
+		// console.log("here", placed);
+		if (boardInternal[row][col] == "") {
+			boardInternal[row][col] = currentDisc;
+			ev.srcElement.parentElement.parentElement.children[row].children[col].classList.add(colorClass);
+			placed = true;
+
+			if (currentDisc == "b") {
+				currentDisc = "r";
+				colorClass = "redDisc";
+			} else if (currentDisc == "r") {
+				currentDisc = "b";
+				colorClass = "blueDisc";
+			}
+
+		}
+		row--;
+	}
+	checkWin();
+}
+
+// First working prototype finished on 29-Nov-2022 at around 3:04 PM
+
+function checkWin() {
+	// Instead of writing out every possible winning position like I did in Tic-Tac-Toe, I'm going to try something different
+	// For each row/column/diagonal check if there are 4 on a single row/column/diagonal (this is done for both colors)
+
+	var countBh;
+	var countRh;
+	var countBv;
+	var countRv;
+	var countBd1;
+	var countRd1;
+	var countBd2;
+	var countRd2;
+
+	// This checks the rows
+	for (var row of boardInternal) {
+		countBh = 0;
+		countRh = 0;
+		for (var col of row) {
+			if (col == "b") {
+				countBh++;
+				countRh = 0;
+			} else if (col == "r") {
+				countRh++;
+				countBh = 0;
+			} else {
+				countBh = 0;
+				countRh = 0;
+				// Added this else on 18-May-2023 upon finding out that rows with blank spaces also resulted in a win - Credit to Ximena MSR for helping find it
+			}
+
+			// console.log(countBh, countRh);
+
+			if (countBh == 4) {
+				console.log("Blue Wins");
+				roundOver = true;
+			} else if (countRh == 4) {
+				console.log("Red Wins");
+				roundOver = true;
+			}
+		}
+	}
+
+	// This checks the columns
+	for (var i = 0; i < 7; i++) {
+		countBv = 0;
+		countRv = 0;
+		for (var j = 0; j < 6; j++) {
+			if (boardInternal[j][i] == "b") {
+				countBv++;
+				countRv = 0;
+			} else if (boardInternal[j][i] == "r") {
+				countRv++;
+				countBv = 0;
+			}
+
+			if (countBv == 4) {
+				console.log("Blue Wins");
+				roundOver = true;
+			} else if (countRv == 4) {
+				console.log("Red Wins");
+				roundOver = true;
+			}
+		}
+	}
+
+	// This checks the diagonals
+		// For this, I realized that there are 12 possible winning positions for a positive-slope diagonal, and 12 for a negative-slope diagonal
+		// Knowing this, I can iterate through the 12 "ends" of the diagonals and count the diagonal discs by moving up and right (or down and left) 4 times for each "end" (for the positive-slope diagonals)
+			// For the negative-slope diagonals, it's essentially the same, but counting by moving up and left (or down and right) 4 times
+	for (var col = 0; col < 4; col++) {
+		for (var row = 0; row < 3; row++) {
+			countBd1 = 0;
+			countRd1 = 0;
+			countBd2 = 0;
+			countRd2 = 0;
+			for (var i = 0; i < 4; i++) {
+				// For positive-slope diagonal
+				if (boardInternal[5-row-i][col+i] == "b") {
+					countBd1++;
+					countRd1 = 0;
+				} else if (boardInternal[5-row-i][col+i] == "r") {
+					countRd1++;
+					countBd1 = 0;					
+				}
+
+				if (countBd1 == 4) {
+					console.log("Blue Wins");
+					roundOver = true;
+				} else if (countRd1 == 4) {
+					console.log("Red Wins");
+					roundOver = true;
+				}
+
+				// For negative-slope diagonal
+				if (boardInternal[5-row-i][6-col-i] == "b") {
+					countBd2++;
+					countRd2 = 0;
+				} else if (boardInternal[5-row-i][6-col-i] == "r") {
+					countRd2++;
+					countBd2 = 0;					
+				}
+
+				if (countBd2 == 4) {
+					console.log("Blue Wins");
+					roundOver = true;
+				} else if (countRd2 == 4) {
+					console.log("Red Wins");
+					roundOver = true;
+				}
+			}
+		}
+	}
+
+}
+	</script>
+</body>
+</html>
