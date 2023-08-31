@@ -23,7 +23,7 @@ def modeloPrediccion():
     print(contenido)
     return jsonify({"resultado": "Hola"})
 
-@servidorWeb.route("/jaja", methods=["GET"])
+@servidorWeb.route("/jaja", methods=['GET'])
 def conecta4():
     return render_template('connect4.html')
 
