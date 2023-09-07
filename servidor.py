@@ -26,7 +26,7 @@ def modeloPrediccion():
             # Solamente para fines demostrativos
         # Los nombres de las columnas en el JSON no necesariamente tienen que corresponer con las columnas del dataframe
             # Siempre y cuando correspondan para que se puedan reconocer en este archivo
-        0.88, 0, 2.6, 0.098, 25, 67, 0.9968,
+        0.88, 0, 2.6, 0.098, 25, 67, 0.9968, 1, 0.4,
         contenido["pH"],
         contenido["sulphates"],
         contenido["alcohol"]
